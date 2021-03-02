@@ -17,3 +17,9 @@ path = "src/file-based.rs"
 [[bin]]
 name = "web-actix"
 path = "src/web-actix.rs"
+
+[[bin]]
+name = "thread"
+path = "src/thread.rs"
+
+
