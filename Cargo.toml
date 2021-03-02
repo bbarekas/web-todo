@@ -24,4 +24,8 @@ path = "src/web-actix.rs"
 name = "thread"
 path = "src/thread.rs"
 
+[[bin]]
+name = "multiple-web"
+path = "src/multiple-web.rs"
+
 
