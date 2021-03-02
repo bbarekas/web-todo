@@ -1,0 +1,19 @@
+[package]
+name = "web-todo"
+version = "0.1.0"
+authors = ["Bill Barekas <bb@wappier.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+actix-web = "2"
+actix-rt = "1.0"
+serde_json = {version = "1.0", default-features = false, features = ["alloc"]}
+
+[[bin]]
+name = "file-based"
+path = "src/file-based.rs"
+
+[[bin]]
+name = "web-actix"
+path = "src/web-actix.rs"
