@@ -28,4 +28,6 @@ path = "src/thread.rs"
 name = "multiple-web"
 path = "src/multiple-web.rs"
 
-
+[[bin]]
+name = "web-views"
+path = "src/web-views.rs"
