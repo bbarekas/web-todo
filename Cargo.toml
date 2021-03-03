@@ -31,3 +31,8 @@ path = "src/multiple-web.rs"
 [[bin]]
 name = "web-views"
 path = "src/web-views.rs"
+
+[[bin]]
+name = "web-basic"
+path = "src/web-basic.rs"
+
