@@ -1,6 +1,7 @@
 use actix_web::{App, HttpServer};
 mod state;
 mod todo;
+mod json_serialization;
 mod views;
 mod processes;
 
