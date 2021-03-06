@@ -1,10 +1,12 @@
 use serde_json::value::Value;
 use serde_json::Map;
 use actix_web::HttpRequest;
+use actix_web::Responder;
 
 use crate::todo;
 use crate::state::read_file;
 use crate::processes::process_input;
+use super::utils::return_state;
 
 
 /// This view creates a to do item and saves it in the state.json file.
@@ -14,14 +16,13 @@ use crate::processes::process_input;
 ///
 /// # Returns
 /// * (String): message to be sent back to the user
-pub async fn create(req: HttpRequest) -> String {
+pub async fn create(req: HttpRequest) -> impl Responder {
 
     // load the data from the state JSON file
     let state: Map<String, Value> = read_file(String::from("./state.json"));
 
     // get the title from the http request
     let title: String = req.match_info().get("title").unwrap().to_string();
-    let title_reference: String = title.clone();
 
     // create the to do item
     let item = todo::todo_factory(&String::from("pending"), &title).expect("create ");
@@ -29,6 +30,6 @@ pub async fn create(req: HttpRequest) -> String {
     // add the to do item from the state.json
     process_input(item, "create".to_string(), &state);
 
-    // return a message to viewer
-    return format!("{} created", title_reference)
+    // return results
+    return return_state()
 }
