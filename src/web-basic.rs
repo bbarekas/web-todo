@@ -6,10 +6,14 @@ mod todo;
 mod json_serialization;
 mod views;
 mod processes;
-
+use std::env;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+
+    let dir = env::current_dir().unwrap();
+    println!("working dir: {}", dir.display());
+
     HttpServer::new(|| {
         let app = App::new()
             .wrap_fn(|req, srv| {
