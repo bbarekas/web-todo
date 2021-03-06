@@ -6,7 +6,7 @@ use serde::Serialize;
 /// # Attributes
 /// * title (String): the title of the to do item
 /// * status (String): the status of the to do item
-#[derive(Serialize)]
+#[derive(Serialize, Debug)]
 pub struct Base {
     pub title: String,
     pub status: String

@@ -7,7 +7,8 @@ use futures::future::{ready, Ready};
 use crate::todo::ItemTypes;
 use crate::todo::structs::base::Base;
 
-#[derive(Serialize)]
+
+#[derive(Serialize, Debug)]
 pub struct ToDoItems {
     pub pending_items: Vec<Base>,
     pub done_items: Vec<Base>,

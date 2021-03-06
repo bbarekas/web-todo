@@ -29,9 +29,9 @@ fn process_done(item: Done, command: String, state: &Map<String, Value>) {
     }
 }
 
-pub fn process_input(item: ItemTypes, command: String,                     state: &Map<String, Value>) {
+pub fn process_input(item: ItemTypes, command: String, state: &Map<String, Value>) {
     match item {
-        ItemTypes::Pending(item) => process_pending(item,            command, state),
-        ItemTypes::Done(item) => process_done(item,            command, state)
+        ItemTypes::Pending(item) => process_pending(item, command, state),
+        ItemTypes::Done(item) => process_done(item, command, state)
     }
 }

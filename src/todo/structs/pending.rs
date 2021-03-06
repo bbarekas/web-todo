@@ -4,6 +4,7 @@ use super::traits::edit::Edit;
 use super::traits::get::Get;
 use super::traits::delete::Delete;
 
+#[derive(Debug)]
 pub struct Pending {
     pub super_struct: Base
 }
