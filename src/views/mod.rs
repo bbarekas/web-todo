@@ -1,5 +1,4 @@
 use actix_web::web;
-pub mod token;
 mod path;
 mod auth;
 mod todo;
