@@ -1,5 +1,6 @@
 use actix_web::Responder;
-
+use actix_web::HttpRequest;
+use crate::auth::jwt::JwtToken;
 use super::utils::return_state;
 
 
@@ -10,6 +11,7 @@ use super::utils::return_state;
 ///
 /// # Returns
 /// * (web::Json): all of the stored to do items
-pub async fn get() -> impl Responder {
-    return return_state()
+pub async fn get(req: HttpRequest) -> impl Responder {
+    let token: JwtToken = JwtToken::decode_from_request(req).unwrap();
+    return return_state(&token.user_id)
 }

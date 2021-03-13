@@ -14,10 +14,11 @@ use crate::schema::to_do;
 ///
 /// # Returns
 /// * (ToDoItems): to do items sorted into Done and Pending with count numbers
-pub fn return_state() -> ToDoItems {
+pub fn return_state(user_id: &i32) -> ToDoItems {
     let connection = establish_connection();
     let items = to_do::table
         .order(to_do::columns::id.asc())
+        .filter(to_do::columns::user_id.eq(&user_id))
         .load::<Item>(&connection)
         .unwrap();
     let mut array_buffer = Vec::new();
