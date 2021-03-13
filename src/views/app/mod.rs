@@ -16,6 +16,7 @@ pub fn app_factory(app: &mut web::ServiceConfig) {
     // define the path struct
     let base_path: Path = Path {
         prefix: String::from("/"),
+        backend: false,
     };
     // define the routes for the app
     app.route(
