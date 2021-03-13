@@ -50,3 +50,6 @@ path = "src/web-basic.rs"
 name = "web-db"
 path = "src/web-db.rs"
 
+[[bin]]
+name = "web-rest"
+path = "src/web-rest.rs"
