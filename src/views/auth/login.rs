@@ -6,6 +6,7 @@ use crate::models::user::user::User;
 use crate::json_serialization::login::Login;
 use crate::schema::users;
 use crate::auth::jwt::JwtToken;
+use log;
 
 pub async fn login(credentials: web::Json<Login>) -> HttpResponse {
     let username: String = credentials.username.clone();
@@ -18,6 +19,8 @@ pub async fn login(credentials: web::Json<Login>) -> HttpResponse {
     if users.len() == 0 {
         return HttpResponse::NotFound().await.unwrap()
     } else if users.len() > 1 {
+        log::error!("multiple users have the username: {}",
+                    credentials.username.clone());
         return HttpResponse::Conflict().await.unwrap()
     }
 

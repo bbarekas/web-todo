@@ -1,5 +1,7 @@
 if (localStorage.getItem("user-token") == null) {
     window.location.replace(document.location.origin + "/login/");
+} else {
+    getItems();
 }
 
 /**
@@ -102,7 +104,7 @@ function getItems() {
     call.send()
 }
 
-getItems();
+//getItems();
 
 document.getElementById("create-button").addEventListener(
     "click", createItem);
