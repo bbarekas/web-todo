@@ -1,7 +1,28 @@
 if (localStorage.getItem("user-token") == null) {
-    window.location.replace(document.location.origin + "/login/");
+    window.location.replace(document.location.origin +
+        "/login/");
 } else {
-    getItems();
+    let cachedData = Date.parse(
+        localStorage.getItem(
+            "item-cache-date"));
+    let now = new Date();
+    let difference = Math.round((
+        now - cachedData) / (1000));
+    if (difference <= 120) {
+        runRenderProcess(JSON.parse(
+            localStorage.getItem(
+                "item-cache-data"
+            )));
+    } else {
+        getItems();
+    }
+}
+
+function runRenderProcess(data) {
+    renderItems(data["pending_items"], "edit", "pendingItems", editItem);
+    renderItems(data["done_items"], "delete", "doneItems", deleteItem);
+    document.getElementById("completeNum").innerHTML = data["done_item_count"];
+    document.getElementById("pendingNum").innerHTML = data["pending_item_count"];
 }
 
 /**
@@ -49,15 +70,14 @@ function renderItems(items, processType,
 function apiCall(url, method) {
     let xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-    xhr.addEventListener('readystatechange', function() {
+    xhr.addEventListener('readystatechange', function () {
         if (this.readyState === this.DONE) {
             if (this.status === 401) {
                 window.location.replace(document.location.origin + "/login/");
             } else {
-                renderItems(JSON.parse(this.responseText)["pending_items"], "edit", "pendingItems", editItem);
-                renderItems(JSON.parse(this.responseText)["done_items"], "delete", "doneItems", deleteItem);
-                document.getElementById("completeNum").innerHTML = JSON.parse(this.responseText)["done_item_count"];
-                document.getElementById("pendingNum").innerHTML = JSON.parse(this.responseText)["pending_item_count"];
+                runRenderProcess(JSON.parse(this.responseText));
+                localStorage.setItem("item-cache-date", new Date());
+                localStorage.setItem("item-cache-data", this.responseText);
             }
         }
     });
@@ -66,7 +86,6 @@ function apiCall(url, method) {
     xhr.setRequestHeader('user-token', localStorage.getItem("user-token"));
     return xhr
 }
-
 
 /**
  * Gets the title from this, and calls the edit API endpoint.
