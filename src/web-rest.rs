@@ -12,18 +12,17 @@ mod auth;
 mod database;
 mod json_serialization;
 mod models;
-mod processes;
 mod schema;
-mod state;
 mod todo;
 mod views;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    let dir = env::current_dir().unwrap();
-    println!("working dir: {}", dir.display());
 
     env_logger::init();
+
+    let dir = env::current_dir().unwrap();
+    log::info!("working dir: {}", dir.display());
 
     HttpServer::new(|| {
         let app = App::new()
@@ -36,11 +35,10 @@ async fn main() -> std::io::Result<()> {
                 if *&req.path().contains("/item/") {
                     match auth::process_token(&req) {
                         Ok(_token) => {
-                            println!("token Ok");
                             passed = true;
                         },
                         Err(message) => {
-                            println!("token error: {}", message);
+                            log::error!("token error: {}", message);
                             passed = false;
                         }
                     };
@@ -48,7 +46,6 @@ async fn main() -> std::io::Result<()> {
                 else {
                     passed = true;
                 }
-                println!("passed: {:?}", passed);
 
                 let end_result = match passed {
                     true => {

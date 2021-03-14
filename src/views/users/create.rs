@@ -24,7 +24,6 @@ pub async fn create(new_user: web::Json<NewUserSchema>) -> HttpResponse {
     let password: String = new_user.password.clone();
 
     let new_user = NewUser::new(name, email, password);
-    println!("New User: {:?}", new_user);
 
     let insert_result = diesel::insert_into(users::table)
         .values(&new_user)
