@@ -20,3 +20,18 @@ impl Create for Pending {}
 impl Edit for Pending {}
 impl Get for Pending {}
 impl Delete for Pending {}
+
+#[cfg(test)]
+mod pending_test {
+    use super::Pending;
+    #[test]
+    fn new() {
+        let expected_status: String = String::from("pending");
+        let title: String = String::from("washing");
+        let expected_title: String = String::from("washing");
+        let done: Pending = Pending::new(&title);
+        assert_eq!(expected_status, done.super_struct.status);
+        assert_eq!(expected_title, done.super_struct.title);
+    }
+}
+
