@@ -1,6 +1,6 @@
 FROM rust:1.50 as builder
 
-RUN apt-get update -yqq && apt-get install -yqq cmake g++
+RUN apt-get update -yqq && apt-get install -yqq cmake g++ libpq-dev
 
 RUN cargo install diesel_cli --no-default-features --features postgres
 
@@ -21,7 +21,15 @@ RUN cargo build --release --bin web-rest
 
 FROM debian:buster-slim
 
+COPY ./templates /templates
+COPY ./javascript /javascript
+COPY ./css /css
+COPY .env .env
+
 COPY --from=builder /web-todo/target/release/web-rest /web-rest
+
+RUN apt-get update -yqq && apt-get install -yqq libpq-dev
+
 USER root
 
 ENV PORT=8000
