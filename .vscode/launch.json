@@ -1,0 +1,47 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'web-rest'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=web-rest",
+                    "--package=web-todo"
+                ],
+                "filter": {
+                    "name": "web-rest",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "program": "${workspaceFolder}/target/debug/web-rest",
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "sourceLanguages": [
+              "rust"
+            ]
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'web-rest'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=web-rest",
+                    "--package=web-todo"
+                ],
+                "filter": {
+                    "name": "web-rest",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
