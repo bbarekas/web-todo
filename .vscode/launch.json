@@ -17,7 +17,7 @@
                 }
             },
             "args": [],
-            "program": "${workspaceFolder}/target/debug/we-rest",
+            "program": "${workspaceFolder}/target/debug/web-rest",
             "cwd": "${workspaceFolder}",
             "stopOnEntry": false,
             "sourceLanguages": [
